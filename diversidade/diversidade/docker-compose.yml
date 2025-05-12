@@ -1,0 +1,48 @@
+services:
+  app:
+    build: .
+    ports:
+      - "9090:9090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@oracle:1521:XE
+      - SPRING_DATASOURCE_USERNAME=diversidade
+      - SPRING_DATASOURCE_PASSWORD=diversidade123
+    depends_on:
+      oracle:
+        condition: service_healthy
+    networks:
+      - diversidade-network
+    restart: on-failure
+
+  oracle:
+    image: gvenzl/oracle-xe:21
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PASSWORD=oracle
+      - ORACLE_DATABASE=DIVERSIDADE
+      - ORACLE_CHARACTERSET=AL32UTF8
+      - ORACLE_NLS_CHARACTERSET=AL32UTF8
+      - ORACLE_NLS_NCHAR_CHARACTERSET=AL16UTF16
+      - ORACLE_ALLOW_REMOTE=true
+      - ORACLE_DISABLE_ASYNCH_IO=true
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./init-scripts:/docker-entrypoint-initdb.d/startup
+    networks:
+      - diversidade-network
+    healthcheck:
+      test: ["CMD", "sqlplus", "-L", "system/oracle@//localhost:1521/XE", "AS", "SYSDBA", "@/docker-entrypoint-initdb.d/startup/01-create-user.sql"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+    restart: on-failure
+    shm_size: '2gb'
+
+volumes:
+  oracle-data:
+
+networks:
+  diversidade-network:
+    driver: bridge
