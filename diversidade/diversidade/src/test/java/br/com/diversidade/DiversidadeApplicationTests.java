@@ -1,4 +1,4 @@
-package br.com.diversidade.diversidade;
+package br.com.diversidade;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
