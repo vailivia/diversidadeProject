@@ -46,4 +46,17 @@ public class TreinamentoService {
         }
         return false;
     }
+
+    public Optional<Treinamento> findById(Long id) {
+        return repository.findById(id);
+    }
+
+    public boolean delete(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 }

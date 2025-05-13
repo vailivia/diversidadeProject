@@ -20,7 +20,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final MyUserDetailsService userDetailsService;
 
-    // ✅ Injeção via construtor (recomendada)
+    // Injeção via construtor (recomendada)
     public JwtFilter(JwtUtil jwtUtil, MyUserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;

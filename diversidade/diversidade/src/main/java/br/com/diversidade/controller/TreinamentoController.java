@@ -33,5 +33,25 @@ public class TreinamentoController {
             return ResponseEntity.badRequest().body("Falha ao associar colaborador.");
         }
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Treinamento> atualizar(@PathVariable Long id, @RequestBody Treinamento novoTreinamento) {
+        return service.findById(id)
+                .map(treinamentoExistente -> {
+                    treinamentoExistente.setTitulo(novoTreinamento.getTitulo());
+                    treinamentoExistente.setDescricao(novoTreinamento.getDescricao());
+                    treinamentoExistente.setData(novoTreinamento.getData());
+                    treinamentoExistente.setObrigatorio(novoTreinamento.isObrigatorio());
+                    Treinamento atualizado = service.save(treinamentoExistente);
+                    return ResponseEntity.ok(atualizado);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        boolean removido = service.delete(id);
+        return removido ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
+
 
 }
