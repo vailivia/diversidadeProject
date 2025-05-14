@@ -2,7 +2,7 @@ services:
   app:
     build: .
     ports:
-      - "1521:1521"
+      - "8080:8080"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl
       - SPRING_DATASOURCE_USERNAME=rm558929
@@ -20,7 +20,6 @@ services:
       - "1521:1521"
     environment:
       - ORACLE_PASSWORD=030306
-      - ORACLE_DATABASE=ORCL
       - ORACLE_CHARACTERSET=AL32UTF8
       - ORACLE_NLS_CHARACTERSET=AL32UTF8
       - ORACLE_NLS_NCHAR_CHARACTERSET=AL16UTF16
@@ -32,7 +31,7 @@ services:
     networks:
       - diversidade-network
     healthcheck:
-      test: ["CMD", "sqlplus", "-L", "system/oracle@//localhost:1521/XE", "AS", "SYSDBA", "@/docker-entrypoint-initdb.d/startup/01-create-user.sql"]
+      test: ["CMD", "sqlplus", "-L", "system/030306@//localhost:1521/XE", "AS", "SYSDBA"]
       interval: 30s
       timeout: 10s
       retries: 10

@@ -1,85 +1,105 @@
-# Corporate Inclusion and Diversity Backend
+# Diversidade - Corporate Diversity and Inclusion Microservice
 
-Este é o backend do sistema de Gestão de Inclusão e Diversidade Corporativa, desenvolvido com Spring Boot 3.2.3 e Java 21.
+A Spring Boot microservice for managing corporate diversity and inclusion initiatives, including training programs and metrics tracking.
 
-## Requisitos
+## Features
+
+- Training program management
+- Training metrics tracking
+- RESTful API with OpenAPI documentation
+- Oracle database integration
+- Docker containerization
+
+## Prerequisites
 
 - Java 21
-- Maven 3.9+
-- Docker e Docker Compose (para execução em container)
-- Oracle Database (para ambiente de produção)
+- Maven
+- Docker and Docker Compose
+- Oracle Database (or use the provided Docker container)
 
-## Configuração do Ambiente
+## Getting Started
 
-### Variáveis de Ambiente
-
-O projeto utiliza as seguintes variáveis de ambiente:
-
-```properties
-# Database
-SPRING_DATASOURCE_URL=jdbc:oracle:thin:@localhost:1521:XE
-SPRING_DATASOURCE_USERNAME=diversidade
-SPRING_DATASOURCE_PASSWORD=diversidade123
-
-# Security
-BASIC_AUTH_USERNAME=admin
-BASIC_AUTH_PASSWORD=admin123
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/diversidade.git
+cd diversidade
 ```
 
-### Executando com Docker
+2. Build the project:
+```bash
+./mvnw clean package
+```
 
-1. Construa e inicie os containers:
+3. Start the application using Docker Compose:
 ```bash
 docker-compose up -d
 ```
 
-2. A aplicação estará disponível em: http://localhost:9090
+The application will be available at `http://localhost:8080`
 
-3. Documentação Swagger: http://localhost:9090/swagger-ui.html
+## API Documentation
 
-### Executando Localmente
-
-1. Clone o repositório
-2. Configure o Oracle Database
-3. Execute o projeto:
-```bash
-./mvnw spring-boot:run
+The API documentation is available through Swagger UI at:
+```
+http://localhost:8080/swagger-ui.html
 ```
 
-## Endpoints da API
+### Training API Endpoints
 
-### Colaboradores
+- `GET /api/trainings` - Get all trainings
+- `GET /api/trainings/{id}` - Get training by ID
+- `POST /api/trainings` - Create new training
+- `PUT /api/trainings/{id}` - Update training
+- `DELETE /api/trainings/{id}` - Delete training
 
-- `GET /colaboradores` - Lista todos os colaboradores
-- `POST /colaboradores` - Cria um novo colaborador
-- `PUT /colaboradores/{id}` - Atualiza um colaborador existente
-- `DELETE /colaboradores/{id}` - Remove um colaborador
+### Metrics API Endpoints
 
-### Estatísticas de Diversidade
+- `GET /api/metrics` - Get all metrics
+- `GET /api/metrics/{id}` - Get metrics by ID
+- `POST /api/metrics` - Create new metrics
+- `PUT /api/metrics/{id}` - Update metrics
+- `DELETE /api/metrics/{id}` - Delete metrics
 
-- `GET /colaboradores/estatisticas` - Retorna estatísticas de diversidade
-- `GET /colaboradores/treinamento` - Lista colaboradores que completaram o treinamento
+## Database Schema
 
-## Segurança
+### Training Table
+- id (PK)
+- title
+- description
+- start_date
+- end_date
+- status
+- created_at
+- updated_at
 
-A API utiliza autenticação básica. Use as seguintes credenciais:
+### Metrics Table
+- id (PK)
+- training_id (FK)
+- participant_count
+- completion_rate
+- satisfaction_score
+- feedback_count
+- created_at
+- updated_at
 
-- Usuário: admin
-- Senha: admin123
+## Development
 
-## Migrações do Banco de Dados
+### Running Tests
+```bash
+./mvnw test
+```
 
-O projeto utiliza Flyway para gerenciar as migrações do banco de dados. As migrações estão localizadas em `src/main/resources/db/migration`.
+### Database Migrations
+The project uses Flyway for database migrations. Migration scripts are located in `src/main/resources/db/migration/`.
 
-## Documentação
+## Contributing
 
-A documentação completa da API está disponível através do Swagger UI em:
-http://localhost:9090/swagger-ui.html
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## Contribuição
+## License
 
-1. Faça o fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -am 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Crie um Pull Request 
+This project is licensed under the MIT License - see the LICENSE file for details. 
