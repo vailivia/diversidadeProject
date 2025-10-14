@@ -1,32 +1,37 @@
-name: CI - Build and Test
+name: CI/CD - DiversidadeProject
 
 on:
   push:
-    branches: [ feature/workflow, main, develop ]
+    branches: [ "main", "develop", "feature/**" ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ "main", "develop" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Configurar Java
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          distribution: temurin
+          java-version: 17
 
-      - name: Show current directory
-        run: |
-          echo "📂 Current path:"
-          pwd
-          echo "📂 Listing:"
-          ls -R
-
-      - name: Build with Maven
-        working-directory: diversidade/diversidade
+      - name: Build com Maven
         run: mvn -B clean package -DskipTests
+
+      - name: Build da imagem Docker
+        run: docker build -t ghcr.io/${{ github.repository }}:latest .
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push da imagem Docker
+        run: docker push ghcr.io/${{ github.repository }}:latest
