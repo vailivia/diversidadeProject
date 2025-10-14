@@ -20,14 +20,17 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Verify directory
+      - name: Verify directory structure
         run: |
+          echo "📂 Current directory:"
           pwd
-          ls -la
+          echo "📂 Listing project contents:"
+          ls -R
 
       - name: Build with Maven
-        working-directory: ./diversidade
+        working-directory: ./diversidade   # <- O pom.xml está dentro dessa pasta
         run: mvn -B clean package -DskipTests
 
       - name: Build Docker image
-        run: docker build -t diversidade-api:latest ./diversidade
+        run: docker build -t diversidade-api:latest .
+
