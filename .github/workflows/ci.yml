@@ -52,15 +52,10 @@ jobs:
         with:
           name: app-build
 
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: Deploy to Azure Web App (Staging)
         uses: azure/webapps-deploy@v2
         with:
-          app-name: diversidadeProject
+          app-name: diversidadeProject-staging
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_STAGING }}
           package: diversidade/diversidade/target/*.jar
 
@@ -74,11 +69,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-build
-
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy to Azure Web App (Production)
         uses: azure/webapps-deploy@v2
