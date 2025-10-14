@@ -21,7 +21,9 @@ jobs:
           java-version: 17
 
       - name: Build com Maven
-        run: mvn -B -f pom.xml clean package -DskipTests
+        working-directory: diversidade
+        run: mvn -B clean package -DskipTests
+
 
       - name: Build da imagem Docker
         run: docker build -t ghcr.io/${{ github.repository }}:latest .
