@@ -29,19 +29,21 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-m2-${{ hashFiles('diversidade/diversidade/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-m2-
 
       - name: Build with Maven (skip tests)
-        run: mvn -B -f pom.xml clean package -DskipTests
+        working-directory: ./diversidade/diversidade
+        run: mvn -B clean package -DskipTests
 
       - name: Run tests
-        run: mvn -B -f pom.xml test
+        working-directory: ./diversidade/diversidade
+        run: mvn -B test
 
       - name: Upload test results (JUnit) - optional
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: target/surefire-reports/**/*
+          path: diversidade/diversidade/target/surefire-reports/**/*
