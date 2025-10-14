@@ -4,7 +4,6 @@ br\com\diversidade\diversidade\repository\TrainingRepository.class
 br\com\diversidade\security\JwtFilter.class
 br\com\diversidade\GlobalExceptionHandler.class
 br\com\diversidade\controller\TreinamentoController.class
-br\com\diversidade\SecurityConfig.class
 br\com\diversidade\dto\ColaboradorResponseDTO.class
 br\com\diversidade\diversidade\model\TrainingStatus.class
 br\com\diversidade\security\AuthController.class
