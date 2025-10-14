@@ -62,7 +62,7 @@ jobs:
         with:
           app-name: diversidadeProject
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_STAGING }}
-          package: '*.jar'
+          package: diversidade/diversidade/target/*.jar
 
   deploy-production:
     runs-on: ubuntu-latest
