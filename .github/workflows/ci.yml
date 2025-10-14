@@ -28,5 +28,5 @@ jobs:
           ls -R
 
       - name: Build with Maven
-        working-directory: diversidadeProject/diversidade
+        working-directory: diversidade/diversidade
         run: mvn -B clean package -DskipTests
