@@ -37,7 +37,7 @@ services:
       retries: 10
       start_period: 120s
     restart: on-failure
-    shm_size: '2gb'
+    shm_size: '6gb'
 
 volumes:
   oracle-data:
