@@ -1,0 +1,11 @@
+steps\AutenticacaoSteps.class
+services\ParticipacaoService.class
+services\AutenticacaoService.class
+services\ColaboradorGestaoService.class
+steps\ParticipacaoSteps.class
+steps\ColaboradorGestaoSteps.class
+br\com\diversidade\RunCucumberTest.class
+br\com\diversidade\DiversidadeApplicationTests.class
+services\TreinamentoService.class
+steps\ErrosSteps.class
+services\ErrosService.class
