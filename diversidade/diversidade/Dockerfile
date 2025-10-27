@@ -1,8 +1,8 @@
 # Build stage
 FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
-COPY diversidade/diversidade/pom.xml .
-COPY diversidade/diversidade/src ./src
+COPY pom.xml .
+COPY src ./src
 RUN apt-get update && apt-get install -y maven
 RUN mvn clean package -DskipTests
 
