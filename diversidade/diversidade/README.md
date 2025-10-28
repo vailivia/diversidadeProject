@@ -47,11 +47,11 @@ docker-compose up -d
 - **Ambiente**: Ubuntu Latest
 - **Java**: Versão 21 (Eclipse Temurin)
 - **Etapas**:
-    - Checkout do código
-    - Setup do JDK 21
-    - Build com Maven (`mvn clean package -DskipTests`)
-    - Execução de testes (`mvn test`)
-    - Upload de artefatos de build
+  - Checkout do código
+  - Setup do JDK 21
+  - Build com Maven (`mvn clean package -DskipTests`)
+  - Execução de testes (`mvn test`)
+  - Upload de artefatos de build
 
 #### 2. Deploy Staging
 - **Trigger**: Push para branch `develop` ou `feature/workflow`
